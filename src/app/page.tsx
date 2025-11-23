@@ -236,23 +236,23 @@ export default function Home() {
 
         {/* Loading State */}
         {(status === "processing" || status === "fetching_weather" || status === "generating_plan") && (
-          <div className="my-16 sm:my-24 flex flex-col items-center justify-center space-y-6 sm:space-y-8 px-4">
+          <div className="my-12 sm:my-16 mx-auto max-w-2xl flex flex-col items-center gap-6 sm:gap-8 rounded-3xl bg-gradient-to-br from-blue-50 to-blue-100/50 dark:from-slate-900 dark:to-slate-800 p-8 sm:p-12 border-2 border-blue-200 dark:border-slate-700 shadow-2xl animate-fade-in-up">
             <div className="relative">
-              <div className="h-16 w-16 sm:h-20 sm:w-20 animate-spin rounded-full border-4 border-slate-200 border-t-blue-600"></div>
-              <div className="absolute inset-0 h-16 w-16 sm:h-20 sm:w-20 animate-ping rounded-full border-4 border-blue-600 opacity-20"></div>
+              <div className="h-16 w-16 sm:h-20 sm:w-20 animate-spin rounded-full border-4 border-blue-200 dark:border-slate-700 border-t-blue-600 dark:border-t-blue-500"></div>
+              <div className="absolute inset-0 h-16 w-16 sm:h-20 sm:w-20 animate-ping rounded-full border-4 border-blue-600 dark:border-blue-500 opacity-20"></div>
             </div>
             <div className="space-y-2 text-center w-full">
               <p className="text-lg sm:text-xl font-semibold text-slate-900 dark:text-white px-4">{statusMessage}</p>
-              <div className="flex flex-col items-start gap-3 sm:gap-4 text-sm text-slate-500 mt-6 sm:mt-8 bg-white/80 backdrop-blur-sm p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-lg w-full max-w-md mx-auto">
+              <div className="flex flex-col items-start gap-3 sm:gap-4 text-sm text-slate-500 dark:text-slate-400 mt-6 sm:mt-8 bg-white/80 dark:bg-black/40 backdrop-blur-sm p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-lg w-full max-w-md mx-auto">
                 <Step
                   label={t("processingInput")}
                   active={status === "processing"}
-                  completed={status === "fetching_weather" || status === "generating_plan"}
+                  completed={status !== "processing"}
                 />
                 <Step
                   label={t("fetchingWeather")}
                   active={status === "fetching_weather"}
-                  completed={status === "generating_plan"}
+                  completed={status !== "processing" && status !== "fetching_weather"}
                 />
                 <Step
                   label={t("generatingPlan")}
@@ -305,13 +305,11 @@ export default function Home() {
 
 function Step({ label, active, completed }: { label: string; active: boolean; completed: boolean }) {
   return (
-    <div className={`flex items-center gap-3 ${active ? "text-blue-600 font-medium" : completed ? "text-green-600" : "text-slate-400"}`}>
+    <div className={`flex items-center gap-3 ${active ? "text-blue-600 dark:text-blue-400 font-medium" : completed ? "text-green-600 dark:text-green-400" : "text-slate-400 dark:text-slate-600"}`}>
       {completed ? (
         <CheckCircle2 className="h-5 w-5" />
       ) : active ? (
-        <div className="h-5 w-5 flex items-center justify-center">
-          <div className="h-2.5 w-2.5 rounded-full bg-blue-600 animate-pulse" />
-        </div>
+        <div className="h-5 w-5 animate-spin rounded-full border-2 border-slate-300 dark:border-slate-600 border-t-blue-600 dark:border-t-blue-400"></div>
       ) : (
         <Circle className="h-5 w-5" />
       )}
