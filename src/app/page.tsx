@@ -5,8 +5,9 @@ import { ChatInput } from "@/components/chat-input";
 import MapComponent from "@/components/map";
 import { WeatherWidget } from "@/components/weather-widget";
 import { ItineraryCard } from "@/components/itinerary-card";
+import { DaySelector } from "@/components/day-selector";
 import { JapanCitiesWeather } from "@/components/japan-cities-weather";
-import { parseTravelIntent, generateItinerary, TravelIntent, ItinerarySuggestion } from "@/lib/ai";
+import { parseTravelIntent, generateItinerary, TravelIntent, DailyPlan } from "@/lib/ai";
 import { fetchWeatherSummary, WeatherSummary } from "@/lib/weather";
 import { useLanguage, LANGUAGES, SupportedLanguage } from "@/lib/i18n";
 import { Plane, MapPin, CheckCircle2, Circle, AlertCircle } from "lucide-react";
@@ -17,7 +18,8 @@ export default function Home() {
   const [status, setStatus] = useState<AppStatus>("idle");
   const [statusMessage, setStatusMessage] = useState("");
   const [weatherData, setWeatherData] = useState<WeatherSummary | null>(null);
-  const [itinerary, setItinerary] = useState<ItinerarySuggestion | null>(null);
+  const [dailyPlans, setDailyPlans] = useState<DailyPlan[] | null>(null);
+  const [selectedDayIndex, setSelectedDayIndex] = useState(0);
   const [userQuery, setUserQuery] = useState("");
   const { language, setLanguage, t } = useLanguage();
 
@@ -26,28 +28,29 @@ export default function Home() {
     setStatus("processing");
     setStatusMessage(t("processingInput"));
     setWeatherData(null);
-    setItinerary(null);
+    setDailyPlans(null);
+    setSelectedDayIndex(0);
 
     try {
       // 1. Parse Intent
       const intent = await parseTravelIntent(query, language);
       console.log("Intent:", intent);
 
-      // 2. Fetch Weather (Always fetch 5 days to have context, but we target one)
+      // 2. Fetch Weather for the full trip duration
       setStatus("fetching_weather");
       setStatusMessage(t("fetchingWeather"));
       const weather = await fetchWeatherSummary({
         location: intent.destination,
-        days: 5,
+        days: Math.max(intent.days, 5), // Fetch at least 5 days
         language: language,
       });
       setWeatherData(weather);
 
-      // 3. Generate Itinerary
+      // 3. Generate Itinerary for multiple days
       setStatus("generating_plan");
       setStatusMessage(t("generatingPlan"));
-      const suggestions = await generateItinerary(intent.destination, weather, language);
-      setItinerary(suggestions);
+      const plans = await generateItinerary(intent.destination, weather, intent.days, language);
+      setDailyPlans(plans);
 
       setStatus("success");
     } catch (error: any) {
@@ -94,7 +97,8 @@ export default function Home() {
           onClick={() => {
             setStatus("idle");
             setWeatherData(null);
-            setItinerary(null);
+            setDailyPlans(null);
+            setSelectedDayIndex(0);
             setUserQuery("");
           }}
           className="flex items-center gap-2 sm:gap-3 hover:opacity-80 transition-opacity"
@@ -178,8 +182,20 @@ export default function Home() {
               </section>
             )}
 
+            {/* Day Selector (for multi-day trips) */}
+            {dailyPlans && dailyPlans.length > 1 && (
+              <div className="px-4">
+                <DaySelector
+                  dailyPlans={dailyPlans}
+                  selectedDayIndex={selectedDayIndex}
+                  onSelectDay={setSelectedDayIndex}
+                  language={language}
+                />
+              </div>
+            )}
+
             {/* Map & Itinerary Grid */}
-            {weatherData && itinerary && (
+            {weatherData && dailyPlans && dailyPlans[selectedDayIndex] && (
               <div className="grid grid-cols-1 gap-8">
                 {/* Map */}
                 <div className="space-y-4">
@@ -190,15 +206,15 @@ export default function Home() {
                   <MapComponent
                     center={[weatherData.latitude, weatherData.longitude]}
                     markers={[
-                      itinerary.morning.coordinates && { lat: itinerary.morning.coordinates.lat, lng: itinerary.morning.coordinates.lng, label: itinerary.morning.title },
-                      itinerary.afternoon.coordinates && { lat: itinerary.afternoon.coordinates.lat, lng: itinerary.afternoon.coordinates.lng, label: itinerary.afternoon.title },
-                      itinerary.evening.coordinates && { lat: itinerary.evening.coordinates.lat, lng: itinerary.evening.coordinates.lng, label: itinerary.evening.title },
+                      dailyPlans[selectedDayIndex].morning.coordinates && { lat: dailyPlans[selectedDayIndex].morning.coordinates.lat, lng: dailyPlans[selectedDayIndex].morning.coordinates.lng, label: dailyPlans[selectedDayIndex].morning.title },
+                      dailyPlans[selectedDayIndex].afternoon.coordinates && { lat: dailyPlans[selectedDayIndex].afternoon.coordinates.lat, lng: dailyPlans[selectedDayIndex].afternoon.coordinates.lng, label: dailyPlans[selectedDayIndex].afternoon.title },
+                      dailyPlans[selectedDayIndex].evening.coordinates && { lat: dailyPlans[selectedDayIndex].evening.coordinates.lat, lng: dailyPlans[selectedDayIndex].evening.coordinates.lng, label: dailyPlans[selectedDayIndex].evening.title },
                     ].filter((m): m is { lat: number; lng: number; label: string } => !!m)}
                   />
                 </div>
 
                 {/* Itinerary */}
-                <ItineraryCard suggestion={itinerary} language={language} />
+                <ItineraryCard dailyPlan={dailyPlans[selectedDayIndex]} language={language} />
               </div>
             )}
           </div>

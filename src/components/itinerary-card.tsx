@@ -1,13 +1,13 @@
-import { ItinerarySuggestion } from "@/lib/ai";
+import { DailyPlan } from "@/lib/ai";
 import { SupportedLanguage } from "@/lib/i18n";
 import { Sun, Moon, Sunset, Utensils, Briefcase, Bus, Shirt } from "lucide-react";
 
 interface ItineraryCardProps {
-    suggestion: ItinerarySuggestion;
+    dailyPlan: DailyPlan;
     language: SupportedLanguage;
 }
 
-export function ItineraryCard({ suggestion, language }: ItineraryCardProps) {
+export function ItineraryCard({ dailyPlan, language }: ItineraryCardProps) {
     const titles = language === "ja"
         ? {
             heading: "1日のプラン",
@@ -46,9 +46,9 @@ export function ItineraryCard({ suggestion, language }: ItineraryCardProps) {
                             <Sun className="h-5 w-5" />
                             <span>{titles.morning}</span>
                         </div>
-                        <h4 className="text-slate-900 font-bold mb-1">{suggestion.morning.title}</h4>
+                        <h4 className="text-slate-900 font-bold mb-1">{dailyPlan.morning.title}</h4>
                         <p className="text-slate-700 text-sm sm:text-base leading-relaxed flex-grow">
-                            {suggestion.morning.description}
+                            {dailyPlan.morning.description}
                         </p>
                     </div>
                 </div>
@@ -61,9 +61,9 @@ export function ItineraryCard({ suggestion, language }: ItineraryCardProps) {
                             <Sunset className="h-5 w-5" />
                             <span>{titles.afternoon}</span>
                         </div>
-                        <h4 className="text-slate-900 font-bold mb-1">{suggestion.afternoon.title}</h4>
+                        <h4 className="text-slate-900 font-bold mb-1">{dailyPlan.afternoon.title}</h4>
                         <p className="text-slate-700 text-sm sm:text-base leading-relaxed flex-grow">
-                            {suggestion.afternoon.description}
+                            {dailyPlan.afternoon.description}
                         </p>
                     </div>
                 </div>
@@ -76,9 +76,9 @@ export function ItineraryCard({ suggestion, language }: ItineraryCardProps) {
                             <Moon className="h-5 w-5" />
                             <span>{titles.evening}</span>
                         </div>
-                        <h4 className="text-slate-900 font-bold mb-1">{suggestion.evening.title}</h4>
+                        <h4 className="text-slate-900 font-bold mb-1">{dailyPlan.evening.title}</h4>
                         <p className="text-slate-700 text-sm sm:text-base leading-relaxed flex-grow">
-                            {suggestion.evening.description}
+                            {dailyPlan.evening.description}
                         </p>
                     </div>
                 </div>
@@ -92,7 +92,7 @@ export function ItineraryCard({ suggestion, language }: ItineraryCardProps) {
                     </div>
                     <div>
                         <h4 className="text-lg font-semibold text-slate-900 mb-1">{titles.outfit}</h4>
-                        <p className="text-slate-700 leading-relaxed">{suggestion.outfit}</p>
+                        <p className="text-slate-700 leading-relaxed">{dailyPlan.outfit}</p>
                     </div>
                 </div>
             </div>
@@ -110,7 +110,7 @@ export function ItineraryCard({ suggestion, language }: ItineraryCardProps) {
                         </div>
                         <div>
                             <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">{titles.meal}</span>
-                            <p className="text-slate-800 font-medium">{suggestion.meal}</p>
+                            <p className="text-slate-800 font-medium">{dailyPlan.meal}</p>
                         </div>
                     </div>
                     {/* Item */}
@@ -120,7 +120,7 @@ export function ItineraryCard({ suggestion, language }: ItineraryCardProps) {
                         </div>
                         <div>
                             <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">{titles.item}</span>
-                            <p className="text-slate-800 font-medium">{suggestion.item}</p>
+                            <p className="text-slate-800 font-medium">{dailyPlan.item}</p>
                         </div>
                     </div>
                     {/* Transport */}
@@ -130,7 +130,7 @@ export function ItineraryCard({ suggestion, language }: ItineraryCardProps) {
                         </div>
                         <div>
                             <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">{titles.transport}</span>
-                            <p className="text-slate-800 font-medium">{suggestion.transport}</p>
+                            <p className="text-slate-800 font-medium">{dailyPlan.transport}</p>
                         </div>
                     </div>
                 </div>
