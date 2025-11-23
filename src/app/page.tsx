@@ -189,7 +189,11 @@ export default function Home() {
                   </h3>
                   <MapComponent
                     center={[weatherData.latitude, weatherData.longitude]}
-                    label={weatherData.locationLabel}
+                    markers={[
+                      itinerary.morning.coordinates && { lat: itinerary.morning.coordinates.lat, lng: itinerary.morning.coordinates.lng, label: itinerary.morning.title },
+                      itinerary.afternoon.coordinates && { lat: itinerary.afternoon.coordinates.lat, lng: itinerary.afternoon.coordinates.lng, label: itinerary.afternoon.title },
+                      itinerary.evening.coordinates && { lat: itinerary.evening.coordinates.lat, lng: itinerary.evening.coordinates.lng, label: itinerary.evening.title },
+                    ].filter((m): m is { lat: number; lng: number; label: string } => !!m)}
                   />
                 </div>
 

@@ -151,7 +151,7 @@ export async function fetchWeatherSummary(params: {
     };
 }
 
-async function geocodeLocation(query: string): Promise<GeocodeResult | null> {
+export async function geocodeLocation(query: string): Promise<GeocodeResult | null> {
     const url = new URL(GEOCODE_ENDPOINT);
     url.searchParams.set("name", query);
     url.searchParams.set("count", "1");

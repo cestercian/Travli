@@ -1,7 +1,7 @@
 "use server";
 
 import { getGroqClient } from "./groq";
-import { WeatherSummary } from "./weather";
+import { geocodeLocation, WeatherSummary } from "./weather";
 import { SupportedLanguage } from "./i18n";
 
 export interface TravelIntent {
@@ -9,13 +9,21 @@ export interface TravelIntent {
     date: string; // ISO date or "tomorrow", "today"
 }
 
+export interface Activity {
+    title: string;
+    description: string;
+    locationName: string;
+    coordinates?: { lat: number; lng: number };
+}
+
 export interface ItinerarySuggestion {
-    morning: string;
-    afternoon: string;
-    evening: string;
+    morning: Activity;
+    afternoon: Activity;
+    evening: Activity;
     meal: string;
     item: string;
     transport: string;
+    outfit: string;
 }
 
 export async function parseTravelIntent(userQuery: string, language: SupportedLanguage): Promise<TravelIntent> {
@@ -86,24 +94,28 @@ export async function generateItinerary(
         ? `あなたはプロの旅行プランナーです。
        目的地と特定の日の天気予報に基づいて、1日の旅行プランを作成してください。
        以下のキーを持つJSONオブジェクトのみを返してください：
-       - "morning": 午前中のアクティビティ（天気考慮）。
-       - "afternoon": 午後のアクティビティ。
-       - "evening": 夜のアクティビティ。
+       - "morning": { "title": "活動名", "description": "詳細な説明", "locationName": "場所の名前(英語で)" }
+       - "afternoon": { "title": "活動名", "description": "詳細な説明", "locationName": "場所の名前(英語で)" }
+       - "evening": { "title": "活動名", "description": "詳細な説明", "locationName": "場所の名前(英語で)" }
        - "meal": おすすめの食事スポット（1つだけ）。
        - "item": 天気に合わせた必須アイテム（例：雨なら傘、晴れなら日焼け止め）。
        - "transport": その都市での移動のヒント（1行）。
+       - "outfit": 天気と活動に合わせた具体的な服装のアドバイス。
        
+       重要: "locationName" はGeocodingのために必ず英語の固有名詞（例: "Senso-ji", "Tokyo Tower"）にしてください。
        トーンは親しみやすく、簡潔に。`
         : `You are a professional travel planner.
        Based on the destination and the weather forecast for a specific day, create a one-day itinerary.
        Return ONLY a JSON object with exactly these keys:
-       - "morning": Activity for the morning (consider weather).
-       - "afternoon": Activity for the afternoon.
-       - "evening": Activity for the evening.
+       - "morning": { "title": "Activity Title", "description": "Details", "locationName": "Specific Place Name" }
+       - "afternoon": { "title": "Activity Title", "description": "Details", "locationName": "Specific Place Name" }
+       - "evening": { "title": "Activity Title", "description": "Details", "locationName": "Specific Place Name" }
        - "meal": One specific recommended dining spot or dish.
        - "item": One essential item to pack based on weather (e.g., Umbrella if rain, Sunscreen if sunny).
        - "transport": One specific tip for getting around this city.
+       - "outfit": Detailed outfit recommendation based on weather and activities.
        
+       IMPORTANT: "locationName" must be a specific, geocodable place name in English (e.g., "Senso-ji", "Tokyo Tower").
        Keep descriptions concise and engaging.`;
 
     const messages = [
@@ -122,8 +134,29 @@ export async function generateItinerary(
     if (!text) throw new Error("Failed to generate itinerary");
 
     try {
-        return JSON.parse(text) as ItinerarySuggestion;
+        const suggestion = JSON.parse(text) as ItinerarySuggestion;
+
+        // Geocode locations
+        const geocodeActivity = async (activity: Activity) => {
+            if (activity.locationName) {
+                // Append destination city to clarify (e.g. "Senso-ji, Tokyo")
+                const query = `${activity.locationName}, ${destination}`;
+                const result = await geocodeLocation(query);
+                if (result) {
+                    activity.coordinates = { lat: result.latitude, lng: result.longitude };
+                }
+            }
+        };
+
+        await Promise.all([
+            geocodeActivity(suggestion.morning),
+            geocodeActivity(suggestion.afternoon),
+            geocodeActivity(suggestion.evening),
+        ]);
+
+        return suggestion;
     } catch (e) {
+        console.error("Error parsing/geocoding itinerary:", e);
         throw new Error("Invalid JSON response for itinerary");
     }
 }

@@ -18,18 +18,25 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 interface MapProps {
     center: [number, number];
-    label: string;
+    markers?: { lat: number; lng: number; label: string }[];
 }
 
-function ChangeView({ center }: { center: [number, number] }) {
+function MapController({ center, markers }: MapProps) {
     const map = useMap();
+
     useEffect(() => {
-        map.setView(center);
-    }, [center, map]);
+        if (markers && markers.length > 0) {
+            const bounds = L.latLngBounds(markers.map(m => [m.lat, m.lng]));
+            map.fitBounds(bounds, { padding: [50, 50] });
+        } else {
+            map.setView(center);
+        }
+    }, [center, markers, map]);
+
     return null;
 }
 
-export default function MapLeaflet({ center, label }: MapProps) {
+export default function MapLeaflet({ center, markers = [] }: MapProps) {
     return (
         <div className="h-64 w-full overflow-hidden rounded-xl border border-slate-200 shadow-sm relative z-0">
             <MapContainer
@@ -38,14 +45,22 @@ export default function MapLeaflet({ center, label }: MapProps) {
                 scrollWheelZoom={false}
                 className="h-full w-full"
             >
-                <ChangeView center={center} />
+                <MapController center={center} markers={markers} />
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <Marker position={center}>
-                    <Popup>{label}</Popup>
-                </Marker>
+                {/* Always show center marker if no other markers, or include it in markers list from parent */}
+                {markers.length === 0 && (
+                    <Marker position={center}>
+                        <Popup>City Center</Popup>
+                    </Marker>
+                )}
+                {markers.map((marker, idx) => (
+                    <Marker key={idx} position={[marker.lat, marker.lng]}>
+                        <Popup>{marker.label}</Popup>
+                    </Marker>
+                ))}
             </MapContainer>
         </div>
     );
