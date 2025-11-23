@@ -1,132 +1,191 @@
-# 🌍 Travel Outfit Assistant
+# 🌏 Travel Planner / 旅行プランナー
 
-**Live Demo:** [https://travel-voice-assistent.vercel.app](https://travel-voice-assistent.vercel.app/)
-
-![Travel Voice Weather Assistant](./src/app/screenshot.png)
+[English](#english) | [日本語](#japanese)
 
 ---
 
-## 📖 Description
+<a name="english"></a>
+## English
 
-**English:**  
-An intelligent, bilingual (Japanese/English) travel planning assistant that combines real-time weather data with AI-powered outfit recommendations and voice input capabilities. Simply speak or type your travel destination, and get personalized clothing suggestions, weather forecasts, and travel tips powered by advanced AI models.
+### 🎯 Overview
+An AI-powered travel planning assistant that combines real-time weather data with intelligent itinerary generation. Simply speak or type your travel plans, and get personalized day-by-day recommendations including activities, outfit suggestions, and essential items to pack.
 
-**日本語:**  
-リアルタイムの天気データとAI駆動の服装提案、音声入力機能を組み合わせたインテリジェントな二言語（日本語・英語）旅行計画アシスタントです。旅行先を話すか入力するだけで、高度なAIモデルによるパーソナライズされた服装提案、天気予報、旅行のヒントが得られます。
+### ✨ Features
+- 🎤 **Voice Input** - Speak your travel plans in Japanese or English
+- 🌤️ **Real-time Weather** - Live weather forecasts from Open-Meteo API
+- 🤖 **AI-Powered Itineraries** - Smart travel suggestions using Groq LLM
+- 📅 **Multi-Day Planning** - Plan trips from 1-7 days
+- 🗺️ **Interactive Maps** - See your destinations on an interactive map
+- 👔 **Outfit Suggestions** - Weather-appropriate clothing recommendations
+- 🌓 **Dark Mode** - Beautiful dark theme for comfortable viewing
+- 🌐 **Bilingual** - Full support for Japanese and English
+
+### 🚀 Tech Stack
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **AI/LLM**: Groq (Llama 3.3 70B & Whisper)
+- **Weather API**: Open-Meteo
+- **Maps**: React Leaflet
+- **Voice**: Web Speech API + Groq Whisper
+
+### 📦 Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/Travel-Assistance.git
+cd Travel-Assistance
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env.local
+# Add your GROQ_API_KEY to .env.local
+
+# Run development server
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### 🔑 Environment Variables
+
+Create a `.env.local` file:
+
+```env
+GROQ_API_KEY=your_groq_api_key_here
+```
+
+Get your free Groq API key at: https://console.groq.com
+
+### 🎮 Usage
+
+1. **Choose Language**: Toggle between English and Japanese
+2. **Input Your Plans**: 
+   - Type: "3 day trip to Tokyo"
+   - Or click the microphone and speak
+3. **View Itinerary**: Browse day-by-day plans with activities, meals, and outfit suggestions
+4. **Explore Map**: See all your destinations marked on the map
+
+### 📱 Example Queries
+- "Plan for Tokyo tomorrow"
+- "2 day trip to Kyoto"
+- "Weekend in Osaka"
+- "明日の東京のプラン"
+- "3日間の京都旅行"
+
+### 🌐 Deployment
+
+#### Deploy to Vercel (Recommended)
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/Travel-Assistance)
+
+1. Push your code to GitHub
+2. Import your repository on [Vercel](https://vercel.com)
+3. Add `GROQ_API_KEY` environment variable
+4. Deploy!
+
+### 📄 License
+MIT License - see [LICENSE](LICENSE) file for details
+
+### 🙏 Acknowledgments
+- Weather data provided by [Open-Meteo](https://open-meteo.com/)
+- AI powered by [Groq](https://groq.com/)
+- Map tiles by [OpenStreetMap](https://www.openstreetmap.org/)
 
 ---
 
-## ✨ Key Features
+<a name="japanese"></a>
+## 日本語
 
-**English:**
-- 🎤 **Voice Input Support** - Record travel queries in Japanese or English using advanced speech recognition (Groq Whisper Large V3 Turbo)
-- 🌍 **Bilingual Interface** - Seamlessly switch between Japanese and English with full localization
-- 🌤️ **Real-time Weather Data** - Live weather forecasts powered by Open-Meteo API with 5-day predictions
-- 🤖 **AI-Powered Recommendations** - Smart outfit suggestions based on weather, culture, and destination using LLaMA 3.3 70B
-- 🗺️ **Interactive Maps** - Visual location display with OpenStreetMap integration
-- 📱 **Responsive Design** - Clean, professional UI optimized for all devices
-- ⚡ **Fast Performance** - Optimized API calls with minimal latency using Groq's fastest models
+### 🎯 概要
+リアルタイムの天気データとAIによる旅程生成を組み合わせた旅行計画アシスタント。音声またはテキストで旅行プランを入力するだけで、アクティビティ、服装の提案、必需品を含む日ごとのパーソナライズされた推奨事項を取得できます。
 
-**日本語:**
-- 🎤 **音声入力対応** - 高度な音声認識（Groq Whisper Large V3 Turbo）を使用して、日本語または英語で旅行クエリを録音
-- 🌍 **二言語インターフェース** - 完全なローカライゼーションで日本語と英語をシームレスに切り替え
-- 🌤️ **リアルタイム天気データ** - Open-Meteo APIによる5日間の予報を含むライブ天気予報
-- 🤖 **AI駆動の提案** - LLaMA 3.3 70Bを使用した天気、文化、目的地に基づくスマートな服装提案
-- 🗾 **日本に特化** - 主要な日本の都市（東京、大阪、京都、札幌、福岡、那覇）のプリロードされた天気カード
-- 🗺️ **インタラクティブマップ** - OpenStreetMap統合による視覚的な場所表示
-- 📱 **レスポンシブデザイン** - すべてのデバイスに最適化されたクリーンでプロフェッショナルなUI
-- ⚡ **高速パフォーマンス** - Groqの最速モデルを使用した最小限のレイテンシで最適化されたAPI呼び出し
+### ✨ 機能
+- 🎤 **音声入力** - 日本語または英語で旅行プランを話す
+- 🌤️ **リアルタイム天気** - Open-Meteo APIからのライブ天気予報
+- 🤖 **AI旅程生成** - Groq LLMを使用したスマートな旅行提案
+- 📅 **複数日プランニング** - 1〜7日間の旅行を計画
+- 🗺️ **インタラクティブマップ** - 目的地をインタラクティブマップで表示
+- 👔 **服装提案** - 天気に適した服装の推奨
+- 🌓 **ダークモード** - 快適な閲覧のための美しいダークテーマ
+- 🌐 **バイリンガル** - 日本語と英語の完全サポート
+
+### 🚀 技術スタック
+- **フレームワーク**: Next.js 15 (App Router)
+- **言語**: TypeScript
+- **スタイリング**: Tailwind CSS v4
+- **AI/LLM**: Groq (Llama 3.3 70B & Whisper)
+- **天気API**: Open-Meteo
+- **マップ**: React Leaflet
+- **音声**: Web Speech API + Groq Whisper
+
+### 📦 インストール
+
+```bash
+# リポジトリをクローン
+git clone https://github.com/yourusername/Travel-Assistance.git
+cd Travel-Assistance
+
+# 依存関係をインストール
+npm install
+
+# 環境変数を設定
+cp .env.example .env.local
+# .env.localにGROQ_API_KEYを追加
+
+# 開発サーバーを起動
+npm run dev
+```
+
+ブラウザで [http://localhost:3000](http://localhost:3000) を開きます。
+
+### 🔑 環境変数
+
+`.env.local`ファイルを作成:
+
+```env
+GROQ_API_KEY=your_groq_api_key_here
+```
+
+無料のGroq APIキーを取得: https://console.groq.com
+
+### 🎮 使い方
+
+1. **言語を選択**: 英語と日本語を切り替え
+2. **プランを入力**: 
+   - テキスト入力: "3日間の東京旅行"
+   - またはマイクをクリックして話す
+3. **旅程を表示**: アクティビティ、食事、服装の提案を含む日ごとのプランを閲覧
+4. **マップを探索**: すべての目的地がマップ上にマークされます
+
+### 📱 クエリ例
+- "明日の東京のプラン"
+- "2日間の京都旅行"
+- "週末の大阪観光"
+- "Plan for Tokyo tomorrow"
+- "3 day trip to Kyoto"
+
+### 🌐 デプロイ
+
+#### Vercelにデプロイ（推奨）
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/Travel-Assistance)
+
+1. コードをGitHubにプッシュ
+2. [Vercel](https://vercel.com)でリポジトリをインポート
+3. `GROQ_API_KEY`環境変数を追加
+4. デプロイ！
+
+### 📄 ライセンス
+MITライセンス - 詳細は[LICENSE](LICENSE)ファイルを参照
+
+### 🙏 謝辞
+- 天気データ提供: [Open-Meteo](https://open-meteo.com/)
+- AI提供: [Groq](https://groq.com/)
+- マップタイル: [OpenStreetMap](https://www.openstreetmap.org/)
 
 ---
 
-## 🏗️ System Architecture
-
-```mermaid
-flowchart TB
-    %% Client Layer
-    subgraph Client["Client · Next.js + React UI"]
-        A["User Input (Text / Voice)"]
-        B["Voice Recorder (Web Audio + MediaRecorder)"]
-        C["Language Toggle (EN ⇆ JA)"]
-        D["Result Panels (Weather · Map · Itinerary)"]
-    end
-
-    %% Server Actions
-    subgraph Server["Next.js Server Actions"]
-        E["transcribeAudio()\n(Groq Whisper Large V3 Turbo)"]
-        F["parseTravelIntent()\n(Groq LLaMA 3.3 70B)"]
-        G["fetchWeatherSummary()\n(Open-Meteo Geocoding + Forecast)"]
-        H["generateItinerary()\n(Groq LLaMA 3.3 70B)"]
-    end
-
-    %% External Providers
-    subgraph Providers["External Services"]
-        I["Groq Whisper API"]
-        J["Groq LLaMA API"]
-        K["Open-Meteo APIs"]
-    end
-
-    %% Flows
-    A -- "Text Query" --> F
-    A -- "Voice Trigger" --> B --> E
-    E --> F
-    F --> G
-    G --> H
-    G --> D
-    H --> D
-    C --> A
-
-    %% Provider Links
-    E --- I
-    F --- J
-    H --- J
-    G --- K
-
-    %% Status Feedback
-    F -->|Status Updates| D
-```
-
----
-
-## 🛠️ Tech Stack
-
-### Frontend
-- **Framework:** Next.js 16 (App Router) with React 19.2
-- **Language:** TypeScript 5
-- **Styling:** Tailwind CSS 4
-- **UI Components:** Lucide React (Icons)
-- **Maps:** React Leaflet + OpenStreetMap
-- **Animations:** Framer Motion
-- **State Management:** React Hooks + SWR
-
-### Backend / APIs
-- **AI/ML:**
-  - Groq SDK (LLaMA 3.3 70B Versatile for chat)
-  - Groq Whisper Large V3 Turbo (Speech-to-text)
-- **Weather Data:** Open-Meteo API (Free, no API key required)
-- **Geocoding:** Open-Meteo Geocoding API
-
-### Development Tools
-- **Package Manager:** npm
-- **Linting:** ESLint 9 with Next.js config
-- **Type Safety:** TypeScript with strict mode
-- **Schema Validation:** Zod 4.1
-- **HTTP Client:** Axios 1.13
-
----
-
-## 🚀 Example Usage
-
-**English Queries:**
-```
-"What should I wear for climbing Mount Fuji?"
-"Planning a trip to Osaka next week"
-"What's the weather like in Kyoto?"
-```
-
-**日本語クエリ:**
-```
-「富士登山の服装を教えて」
-「来週大阪に旅行します」
-「京都の天気はどうですか？」
-```
+Made with ❤️ using Next.js and AI
