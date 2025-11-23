@@ -112,14 +112,14 @@ export default function Home() {
 
         <div className="flex items-center gap-2 sm:gap-3">
           {/* Language Toggle */}
-          <div className="flex items-center gap-0.5 sm:gap-1 rounded-full border border-slate-200 bg-white p-0.5 sm:p-1 shadow-sm">
+          <div className="flex items-center gap-0.5 sm:gap-1 rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-0.5 sm:p-1 shadow-sm">
             {LANGUAGES.map((lang) => (
               <button
                 key={lang.id}
                 onClick={() => setLanguage(lang.id)}
                 className={`rounded-full px-2.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium transition-all ${language === lang.id
                   ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md"
-                  : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+                  : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800"
                   }`}
               >
                 {lang.label}
@@ -130,19 +130,19 @@ export default function Home() {
           {/* Dark Mode Toggle */}
           <button
             onClick={() => setIsDarkMode(!isDarkMode)}
-            className="rounded-full border border-slate-200 bg-white p-2 sm:p-2.5 hover:bg-slate-50 hover:border-slate-300 transition-all shadow-sm"
+            className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-2 sm:p-2.5 hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 transition-all shadow-sm"
             title={isDarkMode ? "Light Mode" : "Dark Mode"}
           >
             {isDarkMode ? (
-              <Sun className="h-4 w-4 sm:h-5 sm:w-5 text-slate-700" />
+              <Sun className="h-4 w-4 sm:h-5 sm:w-5 text-slate-700 dark:text-slate-300" />
             ) : (
-              <Moon className="h-4 w-4 sm:h-5 sm:w-5 text-slate-700" />
+              <Moon className="h-4 w-4 sm:h-5 sm:w-5 text-slate-700 dark:text-slate-300" />
             )}
           </button>
 
           <button
             onClick={() => window.location.reload()}
-            className="rounded-full border border-slate-200 bg-white px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium hover:bg-slate-50 hover:border-slate-300 transition-all shadow-sm"
+            className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 transition-all shadow-sm"
             title={t("newChat")}
           >
             <span className="hidden sm:inline">{t("newChat")}</span>
@@ -276,29 +276,29 @@ export default function Home() {
 
       </main>
 
-      {/* Input Area (Fixed Bottom) */}
-      <div className="fixed bottom-0 left-0 right-0 border-t border-slate-200/60 bg-white/98 backdrop-blur-xl px-3 sm:px-4 py-4 sm:py-6 shadow-2xl">
-        <div className="mx-auto max-w-4xl">
-          <ChatInput
-            onSend={handleSend}
-            disabled={status !== "idle" && status !== "success" && status !== "error"}
-            placeholder={t("inputPlaceholder")}
-          />
-          {status === "idle" && (
-            <div className="mt-3 sm:mt-4 flex flex-wrap justify-center gap-2 sm:gap-2.5 text-xs sm:text-sm">
-              {examplePrompts.map((prompt, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => handleSend(prompt)}
-                  className="rounded-full border border-slate-200 bg-slate-50 px-3 sm:px-4 py-1.5 sm:py-2 text-slate-700 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 transition-all shadow-sm hover:shadow text-center"
-                >
-                  {prompt}
-                </button>
-              ))}
-            </div>
-          )}
+      {/* Input Area (Fixed Bottom) - Now handled by ChatInput component itself */}
+      <ChatInput
+        onSend={handleSend}
+        disabled={status === "processing" || status === "fetching_weather" || status === "generating_plan"}
+        placeholder={t("inputPlaceholder")}
+      />
+
+      {/* Example Prompts - shown when idle */}
+      {status === "idle" && (
+        <div className="fixed bottom-24 sm:bottom-28 left-0 right-0 z-40">
+          <div className="flex flex-wrap items-center justify-center gap-2 px-4 pb-3">
+            {examplePrompts.map((prompt, i) => (
+              <button
+                key={i}
+                onClick={() => handleSend(prompt)}
+                className="rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-4 py-2 text-sm text-slate-700 dark:text-slate-300 transition-all hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue400 cursor-pointer"
+              >
+                {prompt}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

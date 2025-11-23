@@ -45,7 +45,7 @@ export function ChatInput({ onSend, disabled, placeholder = "Ask about the weath
                         <button
                             type="submit"
                             disabled={disabled || !input.trim()}
-                            className="rounded-full bg-gradient-to-r from-blue-600 to-blue-700 p-2.5 sm:p-3 text-white hover:from-blue-700 hover:to-blue-800 disabled:from-slate-300 disabled:to-slate-300 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl active:scale-95"
+                            className="rounded-full bg-gradient-to-r from-blue-600 to-blue-700 p-2.5 sm:p-3 text-white hover:from-blue-700 hover:to-blue-800 disabled:from-slate-400 disabled:to-slate-400 dark:disabled:from-slate-700 dark:disabled:to-slate-700 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl active:scale-95"
                         >
                             <Send className="h-4 w-4 sm:h-5 sm:w-5" />
                         </button>

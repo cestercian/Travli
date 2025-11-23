@@ -28,15 +28,15 @@ export function DaySelector({ dailyPlans, selectedDayIndex, onSelectDay, languag
                         className={`
                             flex-shrink-0 px-4 py-3 rounded-xl border-2 transition-all
                             ${isSelected
-                                ? 'border-blue-500 bg-blue-50 shadow-md'
-                                : 'border-slate-200 bg-white hover:border-blue-300 hover:bg-blue-50/50'}
+                                ? 'border-blue-500 bg-blue-50 dark:bg-blue-950 shadow-md'
+                                : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-blue-950/50'}
                         `}
                     >
                         <div className="flex flex-col items-center gap-1">
-                            <span className={`text-xs font-bold uppercase tracking-wide ${isSelected ? 'text-blue-600' : 'text-slate-500'}`}>
+                            <span className={`text-xs font-bold uppercase tracking-wide ${isSelected ? 'text-blue-600 dark:text-blue-400' : 'text-slate-500 dark:text-slate-400'}`}>
                                 {language === "ja" ? `${index + 1}日目` : `Day ${index + 1}`}
                             </span>
-                            <span className={`text-sm font-medium ${isSelected ? 'text-blue-900' : 'text-slate-700'}`}>
+                            <span className={`text-sm font-medium ${isSelected ? 'text-blue-900 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'}`}>
                                 {formatDate(plan.date)}
                             </span>
                         </div>
