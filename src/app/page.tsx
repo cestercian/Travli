@@ -10,7 +10,7 @@ import { JapanCitiesWeather } from "@/components/japan-cities-weather";
 import { parseTravelIntent, generateItinerary, TravelIntent, DailyPlan } from "@/lib/ai";
 import { fetchWeatherSummary, WeatherSummary } from "@/lib/weather";
 import { useLanguage, LANGUAGES, SupportedLanguage } from "@/lib/i18n";
-import { Plane, MapPin, CheckCircle2, Circle, AlertCircle } from "lucide-react";
+import { Plane, MapPin, CheckCircle2, Circle, AlertCircle, Moon, Sun } from "lucide-react";
 
 type AppStatus = "idle" | "processing" | "fetching_weather" | "generating_plan" | "success" | "error";
 
@@ -21,6 +21,7 @@ export default function Home() {
   const [dailyPlans, setDailyPlans] = useState<DailyPlan[] | null>(null);
   const [selectedDayIndex, setSelectedDayIndex] = useState(0);
   const [userQuery, setUserQuery] = useState("");
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const { language, setLanguage, t } = useLanguage();
 
   const handleSend = async (query: string) => {
@@ -80,19 +81,19 @@ export default function Home() {
   const examplePrompts = language === "ja"
     ? [
       "明日の東京のプラン",
-      "週末の京都旅行",
-      "大阪で食べ歩きしたい",
+      "2日間の京都旅行",
+      "3日間の大阪観光",
     ]
     : [
       "Plan for Tokyo tomorrow",
-      "Day trip to Kyoto this weekend",
-      "Food tour in Osaka",
+      "2 day trip to Kyoto",
+      "3 day trip to Osaka",
     ];
 
   return (
-    <div className="min-h-screen font-sans text-slate-900">
+    <div className={`min-h-screen font-sans ${isDarkMode ? 'dark bg-black text-white' : 'bg-gradient-to-br from-slate-50 to-blue-50 text-slate-900'} transition-colors duration-300`}>
       {/* Header */}
-      <header className="sticky top-0 z-50 flex items-center justify-between border-b border-slate-200/60 bg-white/95 px-3 sm:px-6 py-3 sm:py-4 backdrop-blur-lg shadow-sm">
+      <header className="sticky top-0 z-50 flex items-center justify-between border-b border-slate-200/60 dark:border-slate-800 bg-white/95 dark:bg-black/95 px-3 sm:px-6 py-3 sm:py-4 backdrop-blur-lg shadow-sm">
         <button
           onClick={() => {
             setStatus("idle");
@@ -106,7 +107,7 @@ export default function Home() {
           <div className="flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 shadow-lg shadow-blue-600/30">
             <Plane className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
           </div>
-          <span className="text-base sm:text-xl font-bold tracking-tight bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">{t("appName")}</span>
+          <span className="text-base sm:text-xl font-bold tracking-tight bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-200 bg-clip-text text-transparent">{t("appName")}</span>
         </button>
 
         <div className="flex items-center gap-2 sm:gap-3">
@@ -125,6 +126,19 @@ export default function Home() {
               </button>
             ))}
           </div>
+
+          {/* Dark Mode Toggle */}
+          <button
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            className="rounded-full border border-slate-200 bg-white p-2 sm:p-2.5 hover:bg-slate-50 hover:border-slate-300 transition-all shadow-sm"
+            title={isDarkMode ? "Light Mode" : "Dark Mode"}
+          >
+            {isDarkMode ? (
+              <Sun className="h-4 w-4 sm:h-5 sm:w-5 text-slate-700" />
+            ) : (
+              <Moon className="h-4 w-4 sm:h-5 sm:w-5 text-slate-700" />
+            )}
+          </button>
 
           <button
             onClick={() => window.location.reload()}
@@ -147,10 +161,10 @@ export default function Home() {
               <Plane className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
             </div>
             <div className="px-4">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight bg-gradient-to-r from-slate-900 via-slate-800 to-slate-700 bg-clip-text text-transparent mb-3">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight bg-gradient-to-r from-slate-900 via-slate-800 to-slate-700 dark:from-white dark:via-slate-100 dark:to-slate-200 bg-clip-text text-transparent mb-3">
                 {t("appName")}
               </h1>
-              <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-xl mx-auto leading-relaxed">
+              <p className="text-base sm:text-lg lg:text-xl text-slate-600 dark:text-slate-300 max-w-xl mx-auto leading-relaxed">
                 {t("subtitle")}
               </p>
             </div>
@@ -199,7 +213,7 @@ export default function Home() {
               <div className="grid grid-cols-1 gap-8">
                 {/* Map */}
                 <div className="space-y-4">
-                  <h3 className="text-xl font-semibold text-slate-900 flex items-center gap-2">
+                  <h3 className="text-xl font-semibold text-slate-900 dark:text-white flex items-center gap-2">
                     <MapPin className="h-5 w-5 text-blue-600" />
                     {t("location")}
                   </h3>
@@ -228,7 +242,7 @@ export default function Home() {
               <div className="absolute inset-0 h-16 w-16 sm:h-20 sm:w-20 animate-ping rounded-full border-4 border-blue-600 opacity-20"></div>
             </div>
             <div className="space-y-2 text-center w-full">
-              <p className="text-lg sm:text-xl font-semibold text-slate-900 px-4">{statusMessage}</p>
+              <p className="text-lg sm:text-xl font-semibold text-slate-900 dark:text-white px-4">{statusMessage}</p>
               <div className="flex flex-col items-start gap-3 sm:gap-4 text-sm text-slate-500 mt-6 sm:mt-8 bg-white/80 backdrop-blur-sm p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-lg w-full max-w-md mx-auto">
                 <Step
                   label={t("processingInput")}
