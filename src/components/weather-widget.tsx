@@ -23,7 +23,7 @@ export function WeatherWidget({ data, language }: WeatherWidgetProps) {
                             <p className="text-5xl font-bold text-slate-900 dark:text-white">{data.forecast[0].maxTemp}°</p>
                             <p className="text-slate-600 dark:text-slate-400 mt-1">{data.forecast[0].description}</p>
                         </div>
-                        <Sun className="h-8 w-8 sm:h-10 sm:w-10 text-blue-600" />
+                        <Sun className="h-8 w-8 sm:h-10 sm:w-10 text-slate-900 dark:text-white" />
                     </div>
                 </div>
 
@@ -35,14 +35,14 @@ export function WeatherWidget({ data, language }: WeatherWidgetProps) {
                         </p>
                         <p className="mt-2 text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">{data.current.precipitation} mm</p>
                     </div>
-                    <Droplets className="h-8 w-8 sm:h-10 sm:w-10 text-blue-600" />
+                    <Droplets className="h-8 w-8 sm:h-10 sm:w-10 text-slate-900 dark:text-white" />
                 </div>
             </div>
 
             {/* Forecast Row */}
             <div className="grid grid-cols-1 gap-3 sm:gap-4 sm:grid-cols-3">
                 {data.forecast.slice(0, 3).map((day) => (
-                    <div key={day.date} className="flex flex-col rounded-xl border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-white to-blue-50/30 dark:from-slate-800 dark:to-blue-950/30 p-4 sm:p-5 shadow-md hover:shadow-lg transition-all hover:scale-[1.02]">
+                    <div key={day.date} className="flex flex-col rounded-xl border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-white to-slate-100/40 dark:from-slate-800 dark:to-slate-900 p-4 sm:p-5 shadow-md hover:shadow-lg transition-all hover:scale-[1.02]">
                         <div className="mb-2 sm:mb-3 flex items-center gap-2 text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400">
                             <Calendar className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                             {new Date(day.date).toLocaleDateString(language === 'ja' ? 'ja-JP' : 'en-US', { weekday: 'short', day: 'numeric' })}

@@ -49,13 +49,13 @@ export function JapanCitiesWeather({ language, onCityClick }: JapanCitiesWeather
                         <button
                             key={city.name}
                             onClick={() => onCityClick(city.name)}
-                            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 p-5 shadow-md hover:shadow-xl hover:border-blue-300 hover:scale-105 transition-all duration-300 cursor-pointer text-left group"
+                            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 p-5 shadow-md hover:shadow-xl hover:border-slate-400 hover:scale-105 transition-all duration-300 cursor-pointer text-left group"
                         >
                             <div className="flex items-center justify-between mb-3">
-                                <p className="text-base font-semibold text-slate-700 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                <p className="text-base font-semibold text-slate-700 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
                                     {language === "ja" ? city.nameJa : city.name}
                                 </p>
-                                <Icon className="h-7 w-7 text-slate-400 group-hover:text-blue-500 transition-colors" />
+                                <Icon className="h-7 w-7 text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors" />
                             </div>
                             <p className="text-4xl font-bold text-slate-900 dark:text-white mb-2">{city.temp}°C</p>
                             <p className="text-sm text-slate-600 dark:text-slate-400">

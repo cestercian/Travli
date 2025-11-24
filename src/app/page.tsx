@@ -91,7 +91,7 @@ export default function Home() {
     ];
 
   return (
-    <div className={`min-h-screen font-sans ${isDarkMode ? 'dark bg-black text-white' : 'bg-gradient-to-br from-slate-50 to-blue-50 text-slate-900'} transition-colors duration-300`}>
+    <div className={`min-h-screen font-sans ${isDarkMode ? 'dark bg-black text-white' : 'bg-slate-50 text-slate-900'} transition-colors duration-300`}>
       {/* Header */}
       <header className="sticky top-0 z-50 flex items-center justify-between border-b border-slate-200/60 dark:border-slate-800 bg-white/95 dark:bg-black/95 px-3 sm:px-6 py-3 sm:py-4 backdrop-blur-lg shadow-sm">
         <button
@@ -104,7 +104,7 @@ export default function Home() {
           }}
           className="flex items-center gap-2 sm:gap-3 hover:opacity-80 transition-opacity"
         >
-          <div className="flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 shadow-lg shadow-blue-600/30">
+          <div className="flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-black shadow-lg shadow-black/40">
             <Plane className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
           </div>
           <span className="text-base sm:text-xl font-bold tracking-tight bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-200 bg-clip-text text-transparent">{t("appName")}</span>
@@ -118,8 +118,8 @@ export default function Home() {
                 key={lang.id}
                 onClick={() => setLanguage(lang.id)}
                 className={`rounded-full px-2.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium transition-all ${language === lang.id
-                  ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md"
-                  : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800"
+                  ? "bg-slate-900 text-white shadow-md"
+                  : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/60 dark:hover:bg-slate-800"
                   }`}
               >
                 {lang.label}
@@ -130,7 +130,7 @@ export default function Home() {
           {/* Dark Mode Toggle */}
           <button
             onClick={() => setIsDarkMode(!isDarkMode)}
-            className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-2 sm:p-2.5 hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 transition-all shadow-sm"
+            className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-2 sm:p-2.5 hover:bg-slate-100/60 dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 transition-all shadow-sm"
             title={isDarkMode ? "Light Mode" : "Dark Mode"}
           >
             {isDarkMode ? (
@@ -142,7 +142,7 @@ export default function Home() {
 
           <button
             onClick={() => window.location.reload()}
-            className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 transition-all shadow-sm"
+            className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100/60 dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 transition-all shadow-sm"
             title={t("newChat")}
           >
             <span className="hidden sm:inline">{t("newChat")}</span>
@@ -157,7 +157,7 @@ export default function Home() {
         {/* Idle State / Welcome */}
         {status === "idle" && (
           <div className="mt-4 sm:mt-8 text-center space-y-6 sm:space-y-8 animate-fade-in-up">
-            <div className="inline-flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 shadow-2xl shadow-blue-600/40">
+            <div className="inline-flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-2xl bg-slate-900 shadow-2xl shadow-slate-900/40">
               <Plane className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
             </div>
             <div className="px-4">
@@ -214,7 +214,7 @@ export default function Home() {
                 {/* Map */}
                 <div className="space-y-4">
                   <h3 className="text-xl font-semibold text-slate-900 dark:text-white flex items-center gap-2">
-                    <MapPin className="h-5 w-5 text-blue-600" />
+                    <MapPin className="h-5 w-5 text-slate-700 dark:text-slate-200" />
                     {t("location")}
                   </h3>
                   <MapComponent
@@ -236,10 +236,10 @@ export default function Home() {
 
         {/* Loading State */}
         {(status === "processing" || status === "fetching_weather" || status === "generating_plan") && (
-          <div className="my-12 sm:my-16 mx-auto max-w-2xl flex flex-col items-center gap-6 sm:gap-8 rounded-3xl bg-gradient-to-br from-blue-50 to-blue-100/50 dark:from-slate-900 dark:to-slate-800 p-8 sm:p-12 border-2 border-blue-200 dark:border-slate-700 shadow-2xl animate-fade-in-up">
+          <div className="my-12 sm:my-16 mx-auto max-w-2xl flex flex-col items-center gap-6 sm:gap-8 rounded-3xl bg-gradient-to-br from-slate-50 to-slate-200/60 dark:from-slate-900 dark:to-slate-800 p-8 sm:p-12 border-2 border-slate-200 dark:border-slate-700 shadow-2xl animate-fade-in-up">
             <div className="relative">
-              <div className="h-16 w-16 sm:h-20 sm:w-20 animate-spin rounded-full border-4 border-blue-200 dark:border-slate-700 border-t-blue-600 dark:border-t-blue-500"></div>
-              <div className="absolute inset-0 h-16 w-16 sm:h-20 sm:w-20 animate-ping rounded-full border-4 border-blue-600 dark:border-blue-500 opacity-20"></div>
+              <div className="h-16 w-16 sm:h-20 sm:w-20 animate-spin rounded-full border-4 border-slate-300 dark:border-slate-700 border-t-slate-900 dark:border-t-slate-200"></div>
+              <div className="absolute inset-0 h-16 w-16 sm:h-20 sm:w-20 animate-ping rounded-full border-4 border-slate-900 dark:border-slate-200 opacity-20"></div>
             </div>
             <div className="space-y-2 text-center w-full">
               <p className="text-lg sm:text-xl font-semibold text-slate-900 dark:text-white px-4">{statusMessage}</p>
@@ -266,11 +266,11 @@ export default function Home() {
 
         {/* Error State */}
         {status === "error" && (
-          <div className="my-12 sm:my-16 mx-auto max-w-2xl rounded-2xl bg-gradient-to-br from-red-50 to-red-100/50 p-6 sm:p-8 text-center border-2 border-red-200 shadow-lg animate-fade-in-up">
-            <div className="mb-4 inline-flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-red-100">
-              <AlertCircle className="h-7 w-7 sm:h-8 sm:w-8 text-red-600" />
+          <div className="my-12 sm:my-16 mx-auto max-w-2xl rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100/60 p-6 sm:p-8 text-center border-2 border-slate-200 shadow-lg animate-fade-in-up">
+            <div className="mb-4 inline-flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-slate-100">
+              <AlertCircle className="h-7 w-7 sm:h-8 sm:w-8 text-slate-700" />
             </div>
-            <p className="text-base sm:text-lg font-medium text-red-700 px-4">{statusMessage}</p>
+            <p className="text-base sm:text-lg font-medium text-slate-800 px-4">{statusMessage}</p>
           </div>
         )}
 
@@ -291,7 +291,7 @@ export default function Home() {
               <button
                 key={i}
                 onClick={() => handleSend(prompt)}
-                className="rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-4 py-2 text-sm text-slate-700 dark:text-slate-300 transition-all hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue400 cursor-pointer"
+                className="rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-4 py-2 text-sm text-slate-700 dark:text-slate-300 transition-all hover:border-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-slate-100 cursor-pointer"
               >
                 {prompt}
               </button>
@@ -305,11 +305,11 @@ export default function Home() {
 
 function Step({ label, active, completed }: { label: string; active: boolean; completed: boolean }) {
   return (
-    <div className={`flex items-center gap-3 ${active ? "text-blue-600 dark:text-blue-400 font-medium" : completed ? "text-green-600 dark:text-green-400" : "text-slate-400 dark:text-slate-600"}`}>
+    <div className={`flex items-center gap-3 ${active ? "text-slate-900 dark:text-slate-100 font-medium" : completed ? "text-slate-700 dark:text-slate-300" : "text-slate-400 dark:text-slate-600"}`}>
       {completed ? (
         <CheckCircle2 className="h-5 w-5" />
       ) : active ? (
-        <div className="h-5 w-5 animate-spin rounded-full border-2 border-slate-300 dark:border-slate-600 border-t-blue-600 dark:border-t-blue-400"></div>
+        <div className="h-5 w-5 animate-spin rounded-full border-2 border-slate-300 dark:border-slate-600 border-t-slate-900 dark:border-t-slate-100"></div>
       ) : (
         <Circle className="h-5 w-5" />
       )}

@@ -39,10 +39,10 @@ export function ItineraryCard({ dailyPlan, language }: ItineraryCardProps) {
             {/* Timeline */}
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                 {/* Morning */}
-                <div className="relative overflow-hidden rounded-2xl border border-orange-100 dark:border-orange-900/50 bg-gradient-to-br from-orange-50 to-white dark:from-orange-950/30 dark:to-slate-900 p-5 sm:p-6 shadow-sm hover:shadow-md transition-all">
-                    <div className="absolute top-0 right-0 -mr-4 -mt-4 h-24 w-24 rounded-full bg-orange-100/50 blur-2xl"></div>
+                <div className="relative overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-black p-5 sm:p-6 shadow-sm hover:shadow-md transition-all">
+                    <div className="absolute top-0 right-0 -mr-4 -mt-4 h-24 w-24 rounded-full bg-slate-200/70 blur-2xl"></div>
                     <div className="relative flex flex-col h-full">
-                        <div className="flex items-center gap-2 mb-2 text-orange-600 font-semibold">
+                        <div className="flex items-center gap-2 mb-2 text-slate-900 dark:text-white font-semibold">
                             <Sun className="h-5 w-5" />
                             <span>{titles.morning}</span>
                         </div>
@@ -54,10 +54,10 @@ export function ItineraryCard({ dailyPlan, language }: ItineraryCardProps) {
                 </div>
 
                 {/* Afternoon */}
-                <div className="relative overflow-hidden rounded-2xl border border-blue-100 dark:border-blue-900/50 bg-gradient-to-br from-blue-50 to-white dark:from-blue-950/30 dark:to-slate-900 p-5 sm:p-6 shadow-sm hover:shadow-md transition-all">
-                    <div className="absolute top-0 right-0 -mr-4 -mt-4 h-24 w-24 rounded-full bg-blue-100/50 blur-2xl"></div>
+                <div className="relative overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-black p-5 sm:p-6 shadow-sm hover:shadow-md transition-all">
+                    <div className="absolute top-0 right-0 -mr-4 -mt-4 h-24 w-24 rounded-full bg-slate-200/70 blur-2xl"></div>
                     <div className="relative flex flex-col h-full">
-                        <div className="flex items-center gap-2 mb-2 text-blue-600 font-semibold">
+                        <div className="flex items-center gap-2 mb-2 text-slate-900 dark:text-white font-semibold">
                             <Sunset className="h-5 w-5" />
                             <span>{titles.afternoon}</span>
                         </div>
@@ -69,10 +69,10 @@ export function ItineraryCard({ dailyPlan, language }: ItineraryCardProps) {
                 </div>
 
                 {/* Evening */}
-                <div className="relative overflow-hidden rounded-2xl border border-indigo-100 dark:border-indigo-900/50 bg-gradient-to-br from-indigo-50 to-white dark:from-indigo-950/30 dark:to-slate-900 p-5 sm:p-6 shadow-sm hover:shadow-md transition-all">
-                    <div className="absolute top-0 right-0 -mr-4 -mt-4 h-24 w-24 rounded-full bg-indigo-100/50 blur-2xl"></div>
+                <div className="relative overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-black p-5 sm:p-6 shadow-sm hover:shadow-md transition-all">
+                    <div className="absolute top-0 right-0 -mr-4 -mt-4 h-24 w-24 rounded-full bg-slate-200/70 blur-2xl"></div>
                     <div className="relative flex flex-col h-full">
-                        <div className="flex items-center gap-2 mb-2 text-indigo-600 font-semibold">
+                        <div className="flex items-center gap-2 mb-2 text-slate-900 dark:text-white font-semibold">
                             <Moon className="h-5 w-5" />
                             <span>{titles.evening}</span>
                         </div>
@@ -87,7 +87,7 @@ export function ItineraryCard({ dailyPlan, language }: ItineraryCardProps) {
             {/* Outfit Section */}
             <div className="rounded-2xl border border-slate-100 dark:border-slate-800 bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-black p-5 sm:p-6 shadow-sm">
                 <div className="flex items-start gap-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-purple-600 shadow-lg shadow-purple-500/30">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-black shadow-lg shadow-black/40">
                         <Shirt className="h-6 w-6 text-white" />
                     </div>
                     <div className="flex-1">
@@ -103,7 +103,7 @@ export function ItineraryCard({ dailyPlan, language }: ItineraryCardProps) {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                     {/* Meal */}
                     <div className="flex items-start gap-3">
-                        <div className="p-2 bg-orange-100 rounded-lg text-orange-600 shrink-0">
+                        <div className="p-2 bg-slate-200 rounded-lg text-slate-800 shrink-0">
                             <Utensils className="h-5 w-5" />
                         </div>
                         <div>
@@ -113,7 +113,7 @@ export function ItineraryCard({ dailyPlan, language }: ItineraryCardProps) {
                     </div>
                     {/* Item */}
                     <div className="flex items-start gap-3">
-                        <div className="p-2 bg-blue-100 rounded-lg text-blue-600 shrink-0">
+                        <div className="p-2 bg-slate-200 rounded-lg text-slate-800 shrink-0">
                             <Briefcase className="h-5 w-5" />
                         </div>
                         <div>
@@ -123,7 +123,7 @@ export function ItineraryCard({ dailyPlan, language }: ItineraryCardProps) {
                     </div>
                     {/* Transport */}
                     <div className="flex items-start gap-3">
-                        <div className="p-2 bg-green-100 rounded-lg text-green-600 shrink-0">
+                        <div className="p-2 bg-slate-200 rounded-lg text-slate-800 shrink-0">
                             <Bus className="h-5 w-5" />
                         </div>
                         <div>

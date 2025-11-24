@@ -158,8 +158,19 @@ export async function geocodeLocation(query: string): Promise<GeocodeResult | nu
     url.searchParams.set("language", "en");
 
     console.log(`[Geocode] Querying: ${query}`);
+
+    // Add timeout to prevent hanging requests
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+
     try {
-        const response = await fetch(url);
+        const response = await fetch(url, {
+            signal: controller.signal,
+            // Add cache control to improve performance
+            next: { revalidate: 3600 } // Cache for 1 hour
+        });
+        clearTimeout(timeoutId);
+
         if (!response.ok) {
             console.error(`[Geocode] API Error: ${response.status} ${response.statusText}`);
             return null;
@@ -168,7 +179,12 @@ export async function geocodeLocation(query: string): Promise<GeocodeResult | nu
         console.log(`[Geocode] Result for ${query}:`, payload.results?.[0]);
         return payload.results?.[0] ?? null;
     } catch (error) {
-        console.error(`[Geocode] Network/Fetch Error:`, error);
+        clearTimeout(timeoutId);
+        if (error instanceof Error && error.name === 'AbortError') {
+            console.error(`[Geocode] Timeout after 10s for: ${query}`);
+        } else {
+            console.error(`[Geocode] Network/Fetch Error:`, error);
+        }
         return null;
     }
 }

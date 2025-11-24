@@ -16,7 +16,7 @@ export function getLocaleFromLanguage(language: SupportedLanguage) {
 // Translation dictionary
 export const translations = {
     ja: {
-        appName: "トラベルプランナー",
+        appName: "Travli",
         subtitle: "音声またはテキストで場所を入力してプランを立てましょう",
         newChat: "新しいチャット",
         inputPlaceholder: "天気について聞く...",
@@ -37,7 +37,7 @@ export const translations = {
         permissionDenied: "マイクへのアクセスが拒否されました。ブラウザの設定を確認してください。",
     },
     en: {
-        appName: "Travel Planner",
+        appName: "Travli",
         subtitle: "Ask about your plans with your location using voice or text",
         newChat: "New Chat",
         inputPlaceholder: "Ask about the weather...",

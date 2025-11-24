@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Travel Planner - AI Travel & Weather Assistant",
+  title: "Travli - AI Travel & Weather Assistant",
   description:
     "Bilingual (Japanese/English) AI-powered travel planner with voice input, real-time weather forecasts, and personalized outfit recommendations for your journey.",
 };
@@ -30,7 +30,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-gradient-to-br from-slate-50 via-slate-100/30 to-blue-50/20 text-slate-900 antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} bg-slate-50 text-slate-900 antialiased`}
       >
         <LanguageProvider>
           <div className="min-h-screen">

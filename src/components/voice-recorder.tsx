@@ -205,8 +205,8 @@ export function VoiceRecorder({ onTranscript, disabled }: VoiceRecorderProps) {
             role="alert"
             aria-live="assertive"
         >
-            <div className="flex w-full max-w-md items-start gap-4 rounded-3xl border border-red-100 bg-white/90 p-4 shadow-lg shadow-red-500/10 backdrop-blur">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-red-50 text-red-600">
+            <div className="flex w-full max-w-md items-start gap-4 rounded-3xl border border-slate-300 bg-white/90 p-4 shadow-lg shadow-slate-500/10 backdrop-blur">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-800">
                     <AlertCircle className="h-6 w-6" />
                 </div>
                 <div className="flex-1">
@@ -248,15 +248,15 @@ export function VoiceRecorder({ onTranscript, disabled }: VoiceRecorderProps) {
                         {/* Status & Visualizer */}
                         <div className="flex items-center justify-between w-full px-2">
                             <div className="flex items-center gap-4">
-                                <div className={`relative flex h-12 w-12 items-center justify-center rounded-full transition-colors duration-300 ${isRecording ? 'bg-red-50' : 'bg-blue-50'
+                                <div className={`relative flex h-12 w-12 items-center justify-center rounded-full transition-colors duration-300 ${isRecording ? 'bg-black' : 'bg-slate-100'
                                     }`}>
                                     {isRecording ? (
                                         <>
-                                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-20"></span>
-                                            <Mic className="h-6 w-6 text-red-500 relative z-10" />
+                                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-black opacity-20"></span>
+                                            <Mic className="h-6 w-6 text-white relative z-10" />
                                         </>
                                     ) : (
-                                        <div className="h-5 w-5 animate-spin rounded-full border-2 border-blue-600 border-t-transparent" />
+                                        <div className="h-5 w-5 animate-spin rounded-full border-2 border-slate-900 border-t-transparent" />
                                     )}
                                 </div>
 
@@ -280,7 +280,7 @@ export function VoiceRecorder({ onTranscript, disabled }: VoiceRecorderProps) {
                                         return (
                                             <div
                                                 key={i}
-                                                className="w-1 bg-red-500 rounded-full transition-all duration-75"
+                                                className="w-1 bg-black rounded-full transition-all duration-75"
                                                 style={{
                                                     height: `${8 + (normalizedLevel * 24 * Math.random())}px`,
                                                     opacity: 0.5 + (normalizedLevel * 0.5)
@@ -296,7 +296,7 @@ export function VoiceRecorder({ onTranscript, disabled }: VoiceRecorderProps) {
                         {isRecording && (
                             <button
                                 onClick={stopRecording}
-                                className="w-full flex items-center justify-center gap-2 rounded-xl bg-red-500 py-4 text-white font-semibold shadow-lg shadow-red-500/20 hover:bg-red-600 active:scale-95 transition-all"
+                                className="w-full flex items-center justify-center gap-2 rounded-xl bg-black py-4 text-white font-semibold shadow-lg shadow-black/30 hover:bg-slate-900 active:scale-95 transition-all"
                             >
                                 <Square className="h-5 w-5 fill-current" />
                                 {language === "ja" ? "録音を停止" : "Stop Recording"}
@@ -317,7 +317,7 @@ export function VoiceRecorder({ onTranscript, disabled }: VoiceRecorderProps) {
                 type="button"
                 onClick={startRecording}
                 disabled={disabled || isRecording || isProcessing}
-                className="rounded-full p-2.5 text-slate-500 hover:bg-blue-50 hover:text-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-95 hover:scale-110"
+                className="rounded-full p-2.5 text-slate-500 hover:bg-slate-100 hover:text-slate-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-95 hover:scale-110"
                 title={language === "ja" ? "クリックして話す (日本語・English対応)" : "Click to speak (Japanese & English supported)"}
                 aria-label={t("clickToSpeak")}
             >

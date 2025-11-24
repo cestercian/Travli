@@ -1,4 +1,4 @@
-# 🌏 Travel Planner / 旅行プランナー
+# 🌏 Travli
 
 [English](#english) | [日本語](#japanese)
 
