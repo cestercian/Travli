@@ -1,6 +1,6 @@
 import { WeatherSummary } from "@/lib/weather";
 import { SupportedLanguage } from "@/lib/i18n";
-import { Sun, Droplets, Calendar } from "lucide-react";
+import { Sun, Droplets, Calendar, Wind } from "lucide-react";
 
 interface WeatherWidgetProps {
     data: WeatherSummary;
@@ -15,7 +15,7 @@ export function WeatherWidget({ data, language }: WeatherWidgetProps) {
             </h3>
 
             {/* Current Status */}
-            <div className="grid grid-cols-1 gap-1.5 sm:gap-2 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-1.5 sm:gap-2 sm:grid-cols-3">
                 <div className="rounded-md border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 p-2 sm:p-3 shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-center justify-between">
                         <div>
@@ -36,6 +36,17 @@ export function WeatherWidget({ data, language }: WeatherWidgetProps) {
                         <p className="mt-0.5 text-lg sm:text-xl font-bold text-slate-900 dark:text-white">{data.current.precipitation} mm</p>
                     </div>
                     <Droplets className="h-5 w-5 sm:h-6 sm:w-6 text-slate-900 dark:text-white" />
+                </div>
+
+                {/* Wind Speed */}
+                <div className="rounded-md border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 p-2 sm:p-3 shadow-sm hover:shadow-md transition-shadow flex items-center justify-between">
+                    <div>
+                        <p className="text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400">
+                            {language === "ja" ? "風速" : "Wind Speed"}
+                        </p>
+                        <p className="mt-0.5 text-lg sm:text-xl font-bold text-slate-900 dark:text-white">12 km/h</p>
+                    </div>
+                    <Wind className="h-5 w-5 sm:h-6 sm:w-6 text-slate-900 dark:text-white" />
                 </div>
             </div>
 

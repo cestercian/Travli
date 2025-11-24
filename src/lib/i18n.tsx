@@ -17,7 +17,7 @@ export function getLocaleFromLanguage(language: SupportedLanguage) {
 export const translations = {
     ja: {
         appName: "Travli",
-        subtitle: "音声またはテキストで場所を入力してプランを立てましょう",
+        subtitle: "どこに行きたいですか？",
         newChat: "新しいチャット",
         inputPlaceholder: "天気について聞く...",
         majorCitiesWeather: "主要都市の天気",
@@ -38,7 +38,7 @@ export const translations = {
     },
     en: {
         appName: "Travli",
-        subtitle: "Ask about your plans with your location using voice or text",
+        subtitle: "Where do you want to go?",
         newChat: "New Chat",
         inputPlaceholder: "Ask about the weather...",
         majorCitiesWeather: "Major Cities Weather",

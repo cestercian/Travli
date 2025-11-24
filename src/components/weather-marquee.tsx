@@ -26,6 +26,20 @@ const JAPAN_CITIES: CityWeatherData[] = [
     { name: "Yokohama", nameJa: "横浜", temp: 15, condition: "Sunny", conditionJa: "晴れ", icon: "sun" },
 ];
 
+// Worldwide capital cities for third row
+const WORLD_CITIES: CityWeatherData[] = [
+    { name: "London", nameJa: "ロンドン", temp: 8, condition: "Rainy", conditionJa: "雨", icon: "rain" },
+    { name: "Delhi", nameJa: "デリー", temp: 22, condition: "Sunny", conditionJa: "晴れ", icon: "sun" },
+    { name: "Paris", nameJa: "パリ", temp: 6, condition: "Cloudy", conditionJa: "曇り", icon: "cloud" },
+    { name: "New York", nameJa: "ニューヨーク", temp: 3, condition: "Snow", conditionJa: "雪", icon: "snow" },
+    { name: "Sydney", nameJa: "シドニー", temp: 25, condition: "Sunny", conditionJa: "晴れ", icon: "sun" },
+    { name: "Seoul", nameJa: "ソウル", temp: 1, condition: "Partly Cloudy", conditionJa: "薄い雲", icon: "cloud" },
+    { name: "Bangkok", nameJa: "バンコク", temp: 28, condition: "Sunny", conditionJa: "晴れ", icon: "sun" },
+    { name: "Moscow", nameJa: "モスクワ", temp: -5, condition: "Snow", conditionJa: "雪", icon: "snow" },
+    { name: "Cairo", nameJa: "カイロ", temp: 19, condition: "Sunny", conditionJa: "晴れ", icon: "sun" },
+    { name: "Berlin", nameJa: "ベルリン", temp: 4, condition: "Cloudy", conditionJa: "曇り", icon: "cloud" },
+];
+
 const iconMap = {
     sun: Sun,
     cloud: Cloud,
@@ -39,9 +53,10 @@ interface WeatherMarqueeProps {
 }
 
 export function WeatherMarquee({ language, onCityClick }: WeatherMarqueeProps) {
-    // Split cities into two rows
+    // Split cities into three rows
     const firstRowCities = JAPAN_CITIES.slice(0, 6);
     const secondRowCities = JAPAN_CITIES.slice(6);
+    const thirdRowCities = WORLD_CITIES;
 
     const WeatherItem = ({ city }: { city: CityWeatherData }) => {
         const Icon = iconMap[city.icon];
@@ -64,7 +79,7 @@ export function WeatherMarquee({ language, onCityClick }: WeatherMarqueeProps) {
     return (
         <div className="w-full space-y-4">
             <h3 className="text-lg font-bold text-slate-900 dark:text-white text-center mb-6">
-                {language === "ja" ? "主要都市の天気" : "Major Cities Weather"}
+                {language === "ja" ? "世界の主要都市" : "Major Cities Weather"}
             </h3>
 
             {/* First row - moving right to left */}
@@ -83,6 +98,16 @@ export function WeatherMarquee({ language, onCityClick }: WeatherMarqueeProps) {
                     {/* Duplicate items for seamless loop */}
                     {[...secondRowCities, ...secondRowCities].map((city, index) => (
                         <WeatherItem key={`row2-${index}`} city={city} />
+                    ))}
+                </div>
+            </div>
+
+            {/* Third row - worldwide cities moving right to left */}
+            <div className="relative overflow-hidden">
+                <div className="flex animate-marquee-right-to-left">
+                    {/* Duplicate items for seamless loop */}
+                    {[...thirdRowCities, ...thirdRowCities].map((city, index) => (
+                        <WeatherItem key={`row3-${index}`} city={city} />
                     ))}
                 </div>
             </div>
