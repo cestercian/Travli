@@ -6,7 +6,7 @@ import MapComponent from "@/components/map";
 import { WeatherWidget } from "@/components/weather-widget";
 import { ItineraryCard } from "@/components/itinerary-card";
 import { DaySelector } from "@/components/day-selector";
-import { JapanCitiesWeather } from "@/components/japan-cities-weather";
+import { WeatherMarquee } from "@/components/weather-marquee";
 import { parseTravelIntent, generateItinerary, TravelIntent, DailyPlan } from "@/lib/ai";
 import { fetchWeatherSummary, WeatherSummary } from "@/lib/weather";
 import { useLanguage, LANGUAGES, SupportedLanguage } from "@/lib/i18n";
@@ -146,16 +146,6 @@ export default function Home() {
       {/* Main Content */}
       <main className="mx-auto max-w-5xl px-3 sm:px-4 py-6 sm:py-8 pb-16 sm:pb-20">
 
-        {/* Centered Search Bar for non-idle states (results/loading/error) */}
-        {status !== "idle" && (
-          <section className="mx-auto max-w-2xl flex flex-col items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
-            <ChatInput
-              onSend={handleSend}
-              disabled={status === "processing" || status === "fetching_weather" || status === "generating_plan"}
-              placeholder={t("inputPlaceholder")}
-            />
-          </section>
-        )}
 
         {/* Idle State / Welcome */}
         {status === "idle" && (
@@ -176,7 +166,7 @@ export default function Home() {
             <div className="mt-10 sm:mt-12 flex flex-col items-center gap-3 sm:gap-4">
               <ChatInput
                 onSend={handleSend}
-                disabled={status === "processing" || status === "fetching_weather" || status === "generating_plan"}
+                disabled={false}
                 placeholder={t("inputPlaceholder")}
               />
 
@@ -194,9 +184,9 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Japan Cities Weather */}
+            {/* Weather Marquee */}
             <div className="mt-16 sm:mt-20 mb-6 sm:mb-8">
-              <JapanCitiesWeather language={language} onCityClick={handleCityClick} />
+              <WeatherMarquee language={language} onCityClick={handleCityClick} />
             </div>
           </div>
         )}
