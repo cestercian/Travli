@@ -29,8 +29,8 @@ export function ChatInput({ onSend, disabled, placeholder = "Ask about the weath
     };
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 z-50 bg-transparent">
-            <form onSubmit={handleSubmit} className="relative w-full max-w-3xl mx-auto py-2 sm:py-4 px-4">
+        <div className="w-full">
+            <form onSubmit={handleSubmit} className="relative w-full max-w-2xl mx-auto py-2 sm:py-4 px-4">
                 <div className="relative flex items-center">
                     <input
                         type="text"

@@ -140,23 +140,26 @@ export default function Home() {
             )}
           </button>
 
-          <button
-            onClick={() => window.location.reload()}
-            className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100/60 dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 transition-all shadow-sm"
-            title={t("newChat")}
-          >
-            <span className="hidden sm:inline">{t("newChat")}</span>
-            <span className="inline sm:hidden">New</span>
-          </button>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="mx-auto max-w-5xl px-3 sm:px-4 py-6 sm:py-8 pb-40 sm:pb-48">
+      <main className="mx-auto max-w-5xl px-3 sm:px-4 py-6 sm:py-8 pb-16 sm:pb-20">
+
+        {/* Centered Search Bar for non-idle states (results/loading/error) */}
+        {status !== "idle" && (
+          <section className="mx-auto max-w-2xl flex flex-col items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+            <ChatInput
+              onSend={handleSend}
+              disabled={status === "processing" || status === "fetching_weather" || status === "generating_plan"}
+              placeholder={t("inputPlaceholder")}
+            />
+          </section>
+        )}
 
         {/* Idle State / Welcome */}
         {status === "idle" && (
-          <div className="mt-4 sm:mt-8 text-center space-y-6 sm:space-y-8 animate-fade-in-up">
+          <div className="mt-8 sm:mt-12 text-center space-y-6 sm:space-y-8 animate-fade-in-up">
             <div className="inline-flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-2xl bg-slate-900 shadow-2xl shadow-slate-900/40">
               <Plane className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
             </div>
@@ -169,8 +172,30 @@ export default function Home() {
               </p>
             </div>
 
+            {/* Search bar centered below title/subtitle */}
+            <div className="mt-10 sm:mt-12 flex flex-col items-center gap-3 sm:gap-4">
+              <ChatInput
+                onSend={handleSend}
+                disabled={status === "processing" || status === "fetching_weather" || status === "generating_plan"}
+                placeholder={t("inputPlaceholder")}
+              />
+
+              {/* Example Prompts - under search when idle */}
+              <div className="flex flex-wrap items-center justify-center gap-2 px-2 sm:px-4">
+                {examplePrompts.map((prompt, i) => (
+                  <button
+                    key={i}
+                    onClick={() => handleSend(prompt)}
+                    className="rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 sm:px-4 py-1.5 text-xs sm:text-sm text-slate-700 dark:text-slate-300 transition-all hover:border-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-slate-100 cursor-pointer"
+                  >
+                    {prompt}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             {/* Japan Cities Weather */}
-            <div className="mt-8 sm:mt-10 mb-6 sm:mb-8">
+            <div className="mt-16 sm:mt-20 mb-6 sm:mb-8">
               <JapanCitiesWeather language={language} onCityClick={handleCityClick} />
             </div>
           </div>
@@ -273,32 +298,7 @@ export default function Home() {
             <p className="text-base sm:text-lg font-medium text-slate-800 px-4">{statusMessage}</p>
           </div>
         )}
-
       </main>
-
-      {/* Input Area (Fixed Bottom) - Now handled by ChatInput component itself */}
-      <ChatInput
-        onSend={handleSend}
-        disabled={status === "processing" || status === "fetching_weather" || status === "generating_plan"}
-        placeholder={t("inputPlaceholder")}
-      />
-
-      {/* Example Prompts - shown when idle */}
-      {status === "idle" && (
-        <div className="fixed bottom-24 sm:bottom-28 left-0 right-0 z-40">
-          <div className="flex flex-wrap items-center justify-center gap-2 px-4 pb-3">
-            {examplePrompts.map((prompt, i) => (
-              <button
-                key={i}
-                onClick={() => handleSend(prompt)}
-                className="rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-4 py-2 text-sm text-slate-700 dark:text-slate-300 transition-all hover:border-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-slate-100 cursor-pointer"
-              >
-                {prompt}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 }

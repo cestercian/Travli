@@ -37,28 +37,28 @@ interface JapanCitiesWeatherProps {
 
 export function JapanCitiesWeather({ language, onCityClick }: JapanCitiesWeatherProps) {
     return (
-        <div className="w-full space-y-5">
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white text-center">
+        <div className="w-full space-y-4">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white text-center">
                 {language === "ja" ? "主要都市の天気" : "Major Cities Weather"}
             </h3>
 
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+            <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-4 sm:gap-2">
                 {JAPAN_CITIES.map((city) => {
                     const Icon = iconMap[city.icon];
                     return (
                         <button
                             key={city.name}
                             onClick={() => onCityClick(city.name)}
-                            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 p-5 shadow-md hover:shadow-xl hover:border-slate-400 hover:scale-105 transition-all duration-300 cursor-pointer text-left group"
+                            className="rounded-md border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 p-2 sm:p-3 shadow-sm hover:shadow-md hover:border-slate-400 hover:scale-105 transition-all duration-300 cursor-pointer text-left group"
                         >
-                            <div className="flex items-center justify-between mb-3">
-                                <p className="text-base font-semibold text-slate-700 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
+                            <div className="flex items-center justify-between mb-1.5">
+                                <p className="text-xs font-semibold text-slate-700 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
                                     {language === "ja" ? city.nameJa : city.name}
                                 </p>
-                                <Icon className="h-7 w-7 text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors" />
+                                <Icon className="h-4 w-4 text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors" />
                             </div>
-                            <p className="text-4xl font-bold text-slate-900 dark:text-white mb-2">{city.temp}°C</p>
-                            <p className="text-sm text-slate-600 dark:text-slate-400">
+                            <p className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-0.5">{city.temp}°C</p>
+                            <p className="text-xs text-slate-600 dark:text-slate-400 truncate">
                                 {language === "ja" ? city.conditionJa : city.condition}
                             </p>
                         </button>
